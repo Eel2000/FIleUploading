@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,5 +16,8 @@ namespace FileUploading.Shared.Models
         public long Taille { get; set; }
         public string? Type { get; set; }
         public DateTime UploadeOn { get; set; } = DateTime.Now;
+
+        [NotMapped]
+        public Stream? File { get; set; }
     }
 }

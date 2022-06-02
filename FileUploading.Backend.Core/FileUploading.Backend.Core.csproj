@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.12.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0-preview.4.22229.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0-preview.4.22229.2">
       <PrivateAssets>all</PrivateAssets>

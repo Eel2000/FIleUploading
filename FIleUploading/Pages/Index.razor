@@ -10,13 +10,40 @@ Upload file below:
 <InputFile OnChange="@OnInputFileChange" @onprogress="@OnProgressAsync" />
 <SurveyPrompt Title="How is Blazor working for you?" />
 
-<ul>
-    @foreach (var video in files)
-    {
-        <li>@video.Name <button class="btn btn-outline-info" @onclick="(()=>OnVideoSelected(video.Id))">Watch</button></li>
-    }
-</ul>
+@if (isUploading)
+{
+    <p>Loading videos...</p>
+}
+else
+{
+    <table class="table">
+        <tbody>
+            @foreach (var video in files)
+            {
+                <tr>
+                    <td>@video.Name</td>
+                    <td>@(video.Taille/baseUnit) MB</td>
+                    <td>
+                        <small>
+                            upload on @video.UploadeOn.ToString("g")
+                        </small>
+                    </td>
+                    <td><button class="btn btn-outline-info" @onclick="(()=>OnVideoSelected(video.Id))">Watch</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
+
+@if (isLoading)
+{
+    <p>Please wait your video is coming</p>
+}
+else
+{
+    <p>ready</p>
+}
 <video id="videoPlayer" controls="controls" width="400" height="262">
     No video to watch...
 </video>

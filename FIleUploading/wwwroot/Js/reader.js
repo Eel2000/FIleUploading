@@ -24,3 +24,11 @@ function loadVideo(base64String, contentType) {
     video.src = dataUrl;
     video.play();
 }
+
+function readVideo(url) {
+    console.log(`the video ${url} will be read`);
+    var video = document.getElementById("videoPlayer");
+    video.src = "";
+    video.src = url;
+    video.play();
+}
