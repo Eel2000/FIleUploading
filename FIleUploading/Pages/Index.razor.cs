@@ -2,9 +2,7 @@
 using FIleUploading.Service;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
-using System;
 using System.Collections.ObjectModel;
 
 namespace FIleUploading.Pages
@@ -50,13 +48,6 @@ namespace FIleUploading.Pages
 
                     content.Add(content: fileContent, name: "\"file\"", fileName: file.Name);
 
-                    //FileUploaded newUpload = new()
-                    //{
-                    //    Type = file.ContentType,
-                    //    Name = file.Name,
-                    //    Taille = file.Size,
-                    //};
-
                     await server.UploadFileToAzurAsync(Guid.NewGuid().ToString(), content);
                 }
                 isUploading = !isUploading;
@@ -85,14 +76,9 @@ namespace FIleUploading.Pages
             if (toWatch is not null)
             {
                 //await jS.InvokeVoidAsync("loadVideo", toWatch.Data, toWatch.Type);
-                await jS.InvokeVoidAsync("readVideo", toWatch.Data);
+                await jS.InvokeVoidAsync("readVideo", toWatch.Data, toWatch.Type);
             }
             isLoading = !isLoading;
-        }
-
-        private async Task OnProgressAsync(ProgressEventArgs args)
-        {
-            //_logger.LogInformation($"{args.Loaded}");
         }
 
     }
