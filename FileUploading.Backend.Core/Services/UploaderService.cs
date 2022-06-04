@@ -72,7 +72,8 @@ namespace FileUploading.Backend.Core.Services
                 if (fileIsUnder10Mb <= 9)
                 {
                     _logger.LogInformation("the file's size is under 9 Mb it will be uploaded without being chunked");
-                    var name = Util.RemoveStringWhiteSpaces(file.FileName);
+                    var name = Util.RemoveStringWhiteSpacesAndBrackets(file.FileName);
+                    //TODO: remove all special chars from the name.
                     var blob = container.GetBlobClient(name);
                     await blob.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
                     await blob.UploadAsync(fileStream, new BlobHttpHeaders { ContentType = file.ContentType });
@@ -83,7 +84,8 @@ namespace FileUploading.Backend.Core.Services
                 else if (fileIsUnder10Mb >= 10)
                 {
                     _logger.LogInformation("The file's size is above 10 MB it will be chunked and uploaded");
-                    var name = Util.RemoveStringWhiteSpaces(file.FileName);
+                    var name = Util.RemoveStringWhiteSpacesAndBrackets(file.FileName);
+                    //TODO: remove all special chars from the name.
                     BlockBlobClient blockBlob = new BlockBlobClient(conn, Constants.CONTAINER_NAME, name);
                     var chunks = new List<string>();
                     double percent = 0;
@@ -102,7 +104,7 @@ namespace FileUploading.Backend.Core.Services
                             {
                                 var value = (p * 100) / file.Length;
                                 percent += Convert.ToDouble(value);
-                                Console.WriteLine($"Uploading process : \r{percent} %");
+                                Console.Write($"\r{percent}%");
                             }));
                         chunks.Add(base64CvrtdChunkId);
                     }

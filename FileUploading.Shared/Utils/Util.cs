@@ -5,9 +5,12 @@ namespace FileUploading.Shared.Utils
     public static class Util
     {
         private static readonly Regex rWhiteSpace = new(@"\s+");
-        public static string RemoveStringWhiteSpaces(string text)
+        public static string RemoveStringWhiteSpacesAndBrackets(string text)
         {
-            return rWhiteSpace.Replace(text, string.Empty);
+            var removeBrackets = text.Replace("[", string.Empty).Replace("]", string.Empty);
+            var proceed = rWhiteSpace.Replace(text, string.Empty);
+
+            return proceed;
         }
 
         //public static bool CheckLeadToolsLicenseValidity()
